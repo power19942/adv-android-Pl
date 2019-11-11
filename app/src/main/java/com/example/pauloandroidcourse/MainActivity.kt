@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"error ${it.message}",Toast.LENGTH_LONG).show()
             })
 
-        var queue = Volley.newRequestQueue(applicationContext)
+        var queue = MySingleton(applicationContext).requestQueue
         queue.add(req)
         queue.start()
     }
