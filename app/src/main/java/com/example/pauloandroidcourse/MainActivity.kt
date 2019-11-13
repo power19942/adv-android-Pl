@@ -1,19 +1,13 @@
 package com.example.pauloandroidcourse
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.pauloandroidcourse.data.DatabaseHandler
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
-import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pauloandroidcourse.data.DatabaseHandler
 import com.example.pauloandroidcourse.model.Contact
 import kotlinx.android.synthetic.main.activity_main.*
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,12 +32,16 @@ class MainActivity : AppCompatActivity() {
 //        db.addContact( Contact(0,"Guerra","158285"))
 //        db.addContact( Contact(0,"Gema","78130"))
         var contactsList = db.getAllContacts()
-        for (i in 0 until contactsList.size){
+        for (i in 0 until contactsList.size) {
             contactArrayList.add(contactsList[i])
-            Log.d("548DB",contactsList[i].name)
+            contactArrayList.add(contactsList[i])
+            Log.d("548DB", contactsList[i].name)
         }
 
-        var adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,contactArrayList)
+        var adapter = RecyclerItem(this@MainActivity,contactArrayList)
         list.adapter = adapter
+        list.layoutManager = GridLayoutManager(applicationContext,2) //LinearLayoutManager(applicationContext)
     }
 }
+
+
