@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Paulo Android Course</string>
+    <string name="drop_table">DROP TABLE IF EXISTS</string>
 </resources>
