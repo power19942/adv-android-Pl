@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.ListFragment
 import com.example.pauloandroidcourse.data.Course
 
-class MainFragment : ListFragment() {
+class ListFragment : ListFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,4 +46,8 @@ class MainFragment : ListFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container,false)
     }
+}
+
+interface CallBacks{
+    fun onItemSelected(course: Course)
 }

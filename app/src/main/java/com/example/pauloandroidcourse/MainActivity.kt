@@ -9,11 +9,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var manager = supportFragmentManager
-        var fragment = MainFragment()
-        manager.beginTransaction()
-            .add(R.id.frame,fragment)
-            .commit()
+//        var manager = supportFragmentManager
+//        var fragment = ListFragment()
+//        manager.beginTransaction()
+//            .add(R.id.frame,fragment)
+//            .commit()
+
+
 
     }
 }
