@@ -1,68 +1,68 @@
 package com.example.pauloandroidcourse
 
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.SoundPool
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
-    var media: MediaPlayer? = null
+    lateinit var media: SoundPool
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        media = MediaPlayer.create(applicationContext, R.raw.watch_me)
-        /*try {
-            media = MediaPlayer()
-            media?.setDataSource("http://buildappswithpaulo.com/music/watch_me.mp3")
-            media?.prepareAsync()
-            media?.setOnPreparedListener {
-                it.start()
-            }
-        }catch (e:Exception){
-            Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
-        }*/
+        var sount1: Int
+        var sount2: Int
+        var sount3: Int
+        var sount4: Int
+
+        var attr = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .build()
+        media = SoundPool.Builder()
+            .setMaxStreams(4)
+            .setAudioAttributes(attr)
+            .build()
 
 
-        media?.setOnCompletionListener {
-            Toast.makeText(this@MainActivity, (it.duration / 1000) / 60, Toast.LENGTH_SHORT).show()
+        sount1 = media.load(this@MainActivity, R.raw.complete, 1)
+        sount2 = media.load(this@MainActivity, R.raw.correct, 1)
+        sount3 = media.load(this@MainActivity, R.raw.defeat_one, 1)
+        sount4 = media.load(this@MainActivity, R.raw.defeat_two, 1)
+
+        buttonOne.setOnClickListener {
+
+            media.play(sount1, 1f, 1f, 0, 0, 1f)
         }
-        seekBarId.max = media!!.duration
 
-        seekBarId.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                if (p2)
-                    media?.seekTo(p1)
-            }
+        buttonTwo.setOnClickListener {
 
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-            }
+            media.play(sount2, 1f, 1f, 0, 0, 1f)
+        }
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
+        buttonThree.setOnClickListener {
 
-        })
+            media.play(sount3, 1f, 1f, 0, 0, 1f)
+        }
 
-        var counter = 0
-        playButton.setOnClickListener {
-            if (counter == 0) {
-                media?.start()
-                counter = 1
-                playButton.text = "Pause"
-            } else {
-                media?.pause()
-                counter = 0
-                playButton.text = "play"
-            }
+        buttonFour.setOnClickListener {
+
+            media.play(sount4, 1f, 1f, 0, 0, 1f)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        media?.pause()
-        media?.release()
+        media.release()
     }
 }
