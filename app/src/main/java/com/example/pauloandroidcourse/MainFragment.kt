@@ -4,10 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import android.widget.Toast
+import androidx.fragment.app.ListFragment
+import com.example.pauloandroidcourse.data.Course
 
-class MainFragment : Fragment() {
+class MainFragment : ListFragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Toast.makeText(activity,"",Toast.LENGTH_SHORT).show()
+        var courses = ArrayList<Course>()
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        courses.add(Course("a course",0))
+        var adapter = CustomAdater(activity!!.applicationContext,R.layout.item_item,courses)
+        listAdapter = adapter
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
