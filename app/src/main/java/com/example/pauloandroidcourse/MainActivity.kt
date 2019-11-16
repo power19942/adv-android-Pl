@@ -6,63 +6,64 @@ import android.media.SoundPool
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.SurfaceHolder
+import android.view.SurfaceView
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),SurfaceHolder.Callback {
 
-    lateinit var media: SoundPool
+    lateinit var media:MediaPlayer
+    lateinit var holder: SurfaceHolder
+
+    override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
+
+    }
+
+    override fun surfaceDestroyed(p0: SurfaceHolder?) {
+    }
+
+    override fun surfaceCreated(p0: SurfaceHolder?) {
+        media.setDisplay(holder)
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var sount1: Int
-        var sount2: Int
-        var sount3: Int
-        var sount4: Int
 
-        var attr = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-            .build()
-        media = SoundPool.Builder()
-            .setMaxStreams(4)
-            .setAudioAttributes(attr)
-            .build()
+        media = MediaPlayer.create(this@MainActivity,R.raw.outro_music)
+        surfaceView.keepScreenOn = true
+        holder = surfaceView.holder
+        holder.addCallback(this@MainActivity)
+        holder.setFixedSize(400,300)
 
-
-        sount1 = media.load(this@MainActivity, R.raw.complete, 1)
-        sount2 = media.load(this@MainActivity, R.raw.correct, 1)
-        sount3 = media.load(this@MainActivity, R.raw.defeat_one, 1)
-        sount4 = media.load(this@MainActivity, R.raw.defeat_two, 1)
-
-        buttonOne.setOnClickListener {
-
-            media.play(sount1, 1f, 1f, 0, 0, 1f)
+        buttonPlay.setOnClickListener {
+            media.start()
         }
 
-        buttonTwo.setOnClickListener {
-
-            media.play(sount2, 1f, 1f, 0, 0, 1f)
+        buttonPause.setOnClickListener {
+            media.pause()
         }
 
-        buttonThree.setOnClickListener {
-
-            media.play(sount3, 1f, 1f, 0, 0, 1f)
+        buttonSkip.setOnClickListener {
+            media.seekTo(media.duration - 100)
         }
 
-        buttonFour.setOnClickListener {
-
-            media.play(sount4, 1f, 1f, 0, 0, 1f)
-        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        media.release()
+        media?.release()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        media?.pause()
+        media?.release()
     }
 }
