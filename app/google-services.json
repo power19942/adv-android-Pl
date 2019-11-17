@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "954804570585",
+    "firebase_url": "https://paulo-android-course.firebaseio.com",
+    "project_id": "paulo-android-course",
+    "storage_bucket": "paulo-android-course.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954804570585:android:c2c8c4b3758180854d71c8",
+        "android_client_info": {
+          "package_name": "com.example.pauloandroidcourse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954804570585-9gt48l70rvccm8akpiq3gpghu1ktfl1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pauloandroidcourse",
+            "certificate_hash": "d39ccf579bb481854588cb3ad652acd97c2003de"
+          }
+        },
+        {
+          "client_id": "954804570585-vbio5b47tlvm7buevbk6jsmr8o9m3e4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSsPgXjwCGTf0jxR_uRfTq5jszyEq3cFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954804570585-vbio5b47tlvm7buevbk6jsmr8o9m3e4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
