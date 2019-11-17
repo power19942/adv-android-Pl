@@ -6,7 +6,7 @@ class Journal {
 
     //We Must have an empty constructor for Firestore
     constructor()
-    
+
     constructor(title: String, thought: String) {
         this.title = title
         this.thought = thought
