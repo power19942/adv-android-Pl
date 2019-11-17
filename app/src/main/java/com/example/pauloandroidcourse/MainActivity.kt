@@ -10,6 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.*
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,13 +28,14 @@ class MainActivity : AppCompatActivity() {
         save_button.setOnClickListener {
             var title: EditText = findViewById(R.id.edit_text_title)
             var thought: EditText = findViewById(R.id.edit_text_thoughts)
-            var data = HashMap<String, String>()
-            data.put("title", title.text.toString())
-            data.put("thought", thought.text.toString())
+            var j = Journal(title.text.toString(),thought.text.toString())
+//            var data = HashMap<String, String>()
+//            data.put("title", title.text.toString())
+//            data.put("thought", thought.text.toString())
 
             db.collection("journal")
                 .document("First thoughts")
-                .set(data)
+                .set(j)
                 .addOnSuccessListener {
                     Toast.makeText(this@MainActivity, "Success", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
@@ -82,14 +88,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        journalRef.addSnapshotListener(this) { doc, ex ->
+        journalRef.addSnapshotListener(this) { snapshots, ex ->
             if (ex != null) {
                 Toast.makeText(this@MainActivity, "Error on Start", Toast.LENGTH_SHORT).show()
-            } else if(doc!!.exists()){
-                var title = doc?.getString("title")
-
-                var thought = doc?.getString("thought")
-                rec_title.text = "$title\n$thought"
+            } else if(snapshots!!.exists()){
+                val journal = snapshots.toObject(Journal::class.java)
+                rec_title.text = "${journal?.title}\n${journal?.thought}"
 
             }else{
                 rec_title.text = "no thoughts "
